@@ -18,6 +18,14 @@ button.view { background: #007bff; color: #fff; }
 button.edit { background: #ffc107; }
 button.delete { background: #dc3545; color: #fff; }
 .note { background: #fff; padding: 12px; margin-top: 12px; border-radius: 10px; }
+ .preview-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;   /* show only 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3.2em;       /* optional (keeps height stable) */
+ }
   /* VIEW PAGE CLEAN CENTERED STYLE */
 #viewPage {
   padding: 20px;
