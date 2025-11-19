@@ -1,40 +1,52 @@
-<!DOCTYPE html>      
-<html lang="en">      
-<head>      
-  <meta charset="UTF-8">      
-  <title>Q & Answers</title>      
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">      
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Q & Answers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <style>
-/* (Your existing CSS — unchanged) */
 * { box-sizing: border-box; }      
 body { font-family: 'Poppins', Arial, sans-serif; background: #f9f9f9; color: #111; margin: 0; padding: 0; }
 header { background: #ffffff; text-align: center; padding: 15px; font-weight: 600; position: sticky; top:0; z-index:10; }
 .container { padding: 15px; max-width: 600px; margin: auto; }
 input, textarea { width: 100%; margin: 8px 0; padding: 12px; border: 1px solid #ccc; border-radius: 10px; background: #fff; }
-button { border: none; border-radius: 10px; padding: 10px 15px; margin: 6px 4px; font-size: 15px; cursor: pointer; width: 30%; }
+button { border: none; border-radius: 10px; padding: 10px 15px; margin: 6px 4px; font-size: 15px; cursor: pointer; }
 button.save { background: #28a745; color: #fff; }
-button.view { background: #007bff; color: #fff; }
-button.edit { background: #ffc107; }
-button.delete { background: #dc3545; color: #fff; }
-.note { background: #fff; padding: 12px; margin-top: 12px; border-radius: 10px; }
- .preview-text {
+
+.note {
+  background: #fff;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.preview-text {
   display: -webkit-box;
-  -webkit-line-clamp: 2;   /* show only 2 lines */
+  -webkit-line-clamp: 2; 
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-height: 3.2em;       /* optional (keeps height stable) */
- }
-  /* VIEW PAGE CLEAN CENTERED STYLE */
+  max-height: 3.2em;
+}
+
+.note-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.note-buttons button { width: 32%; }
+button.view { background: #007bff; color: #fff; }
+button.delete { background: #dc3545; color: #fff; }
+
+/* VIEW PAGE */
 #viewPage {
   padding: 20px;
   max-width: 650px;
   margin: auto;
   background: #ffffff;
 }
-
-/* Back Button */
 #viewPage .back {
   background: #f1f1f1;
   color: #333;
@@ -46,8 +58,6 @@ button.delete { background: #dc3545; color: #fff; }
   gap: 6px;
   font-size: 16px;
 }
-
-/* Title centered, bold */
 #viewTitle {
   text-align: center;
   font-size: 26px;
@@ -55,8 +65,6 @@ button.delete { background: #dc3545; color: #fff; }
   color: #222;
   margin-bottom: 10px;
 }
-
-/* Info Box */
 #viewInfo {
   background: #eef5ff;
   color: #2a4a7b;
@@ -66,26 +74,16 @@ button.delete { background: #dc3545; color: #fff; }
   text-align: center;
   margin-bottom: 10px;
   display: inline-block;
-  width: auto;
-  max-width: 90%;
 }
-
-/* Date Box */
 #viewDate {
   background: #fff7e6;
   color: #8a6d3b;
   padding: 8px 15px;
   border-radius: 8px;
   font-size: 14px;
-  text-align: center;
-  margin: auto;
   margin-bottom: 20px;
   display: inline-block;
-  width: auto;
-  max-width: 90%;
 }
-
-/* Note Content clean centered text */
 #viewContent {
   font-size: 18px;
   line-height: 1.6;
@@ -93,32 +91,32 @@ button.delete { background: #dc3545; color: #fff; }
   padding: 20px;
   background: #fafafa;
   border-radius: 12px;
-  text-align: center;
   white-space: pre-wrap;
+  text-align: center;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 </style>
 
-</head>      
-<body>      
+</head>
+<body>
 
-<header>📝 My Notepad (Cloud Sync)</header>      
+<header>📝 My Notepad (Cloud Sync)</header>
 
-<div class="container" id="homePage">      
-  <input type="text" id="title" placeholder="Title">      
-  <input type="text" id="info" placeholder="Information (optional)">      
-  <textarea id="content" placeholder="Write your note..."></textarea>      
-  <button class="save" onclick="saveNote()">Save</button>      
-  <div id="notesList"></div>      
-</div>      
+<div class="container" id="homePage">
+  <input type="text" id="title" placeholder="Title">
+  <input type="text" id="info" placeholder="Information (optional)">
+  <textarea id="content" placeholder="Write your note..."></textarea>
+  <button class="save" onclick="saveNote()">Save</button>
+  <div id="notesList"></div>
+</div>
 
 <div id="viewPage" style="display:none;">
-  <button class="back" onclick="goBack()">⬅ Back</button>      
-  <h2 id="viewTitle"></h2>      
-  <div id="viewInfo"></div>      
-  <div id="viewDate"></div>      
-  <p id="viewContent"></p>      
-</div>      
+  <button class="back" onclick="goBack()">⬅ Back</button>
+  <h2 id="viewTitle"></h2>
+  <div id="viewInfo"></div>
+  <div id="viewDate"></div>
+  <p id="viewContent"></p>
+</div>
 
 <script>
 /* -----------------------------------------
